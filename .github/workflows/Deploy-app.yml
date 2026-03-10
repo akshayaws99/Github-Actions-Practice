@@ -17,5 +17,5 @@ jobs:
         
          
           
-          - name: deploy with docker compose
+          - name: deploy with docker compose up
             run: docker compose up -d --build
