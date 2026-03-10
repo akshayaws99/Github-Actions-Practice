@@ -20,6 +20,8 @@ jobs:
         uses: actions/configure-pages@v4
       - name: upload static files
         uses: actions/upload-pages-artifact@v4
+        with:
+          path: "."
       - name: deploy to github for running
         id: deployment
         uses: actions/deploy-pages@v4
