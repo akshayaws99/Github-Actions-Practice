@@ -1,0 +1,18 @@
+#Scan for docker for issues and vulnerabilities. It uses the hadolint action to perform the scan and will run on every push to the main branch. If any issues are found, the workflow will fail and provide details about the findings in the logs.
+name: Docker-lint
+
+on:
+    workflow_call:  # This allows the workflow to be called from other workflows, such as the Docker build and push workflow
+
+jobs:
+    validate-dockerfile:
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: checkout code
+              uses: actions /checkout@v4
+
+            - name: validate docker file # uses hadolint
+              uses: hadolint/hadolint-action@v3.1.0
+              with:
+                dockerfile: Dockerfile
