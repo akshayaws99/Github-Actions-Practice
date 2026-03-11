@@ -1,0 +1,32 @@
+#It will scan the packages and check for any vulnerabilities in the dependencies used in the project. It uses the dependency-check action to perform the scan and will run on every push to the main branch. If any vulnerabilities are found, the workflow will fail and provide details about the findings in the logs.
+# ex: we are using flask 3.1.0 and if there is any vulnerability in that version, it will be flagged in the scan results.
+# pip- audit for 
+name: Dependency-Scan
+
+on: 
+   workflow_call:
+
+jobs:
+    dependency-check:
+        runs-on: ubuntu-latest
+    
+        steps:
+
+           - name: checkout the code
+             uses: actions/checkout@v4
+            
+           - name: setup python 3.12
+             uses: actions/setup-python@v5
+             with:
+                python-version: 3.12
+    
+           - name: pip audit install
+             run : pip install pip-audit
+             
+        
+           - name: audit dependencies
+             run : pip-audit -r requirements.txt
+            
+
+
+    
