@@ -1,17 +1,16 @@
-name: python-lint
+#linting and sast scan .flake8 is used for linting and bandit is used for sast scan. 
+#It will run on every push to the main branch and if any issues are found, the workflow will fail and provide details about the findings in the logs.
+name: Code-Quality
 
 on:
-    workflow-dispatch:
-  #push:
-    #branches: [main]
-
+    workflow_call:
 jobs:
     validate:
         runs-on: ubuntu-latest
         strategy:
             fail-fast: false
             matrix: 
-                python-version: ["3.9", "3.10","3.11","3.12","3.13"]
+                python-version: ["3.11","3.12","3.13"]
             
     
         steps:
@@ -28,6 +27,6 @@ jobs:
             
            - name: run linter
              run: flake8 app.py
-
-             
-
+           
+           - name: run SAST
+             run : bandit -r app.py
