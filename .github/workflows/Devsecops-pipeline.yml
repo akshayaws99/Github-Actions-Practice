@@ -1,5 +1,6 @@
 name: Devsecops end to end pipeline
-on: workflow_dispatch
+on: 
+    workflow_dispatch:
 jobs:
   Code-quality:
     uses: ./.github/workflows/code-quality.yml
