@@ -9,7 +9,7 @@ jobs:
       env:
           DOCKERHUB_USER: ${{ vars.DOCKERHUB_USER }}
     
-      runs-on: self-hosted
+      runs-on: self-hostedz
     
       steps:
           - name: checkout the code
@@ -18,4 +18,4 @@ jobs:
          
           
           - name: deploy with docker compose up
-            run: docker compose up -d --build
+            run: docker compose down && docker compose up -d --build --force-recreate
