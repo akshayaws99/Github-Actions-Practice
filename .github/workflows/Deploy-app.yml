@@ -9,7 +9,7 @@ jobs:
       env:
           DOCKERHUB_USER: ${{ vars.DOCKERHUB_USER }}
     
-      runs-on: ubuntu-latest
+      runs-on: self-hosted
     
       steps:
           - name: checkout the code
