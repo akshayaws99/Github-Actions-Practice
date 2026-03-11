@@ -1,0 +1,22 @@
+name: Deploy to server
+
+on:
+    workflow_call:
+
+
+jobs:
+    deploy:
+        runs-on: ubuntu-latest
+        steps:
+            - name : copy docker compose file
+              
+            - name: SSH to Prod server
+              uses: appleboy/ssh-action@v1.0.3
+              with:
+               host: ${{ secrets.SSH_HOST }}
+               username: ${{ secrets.SSH_USERNAME }}
+               key: ${{ secrets.SSH_PRIVATE_KEY }}
+               script: |
+                   echo "Starting Deployment"
+                   mkdir devops
+                   
