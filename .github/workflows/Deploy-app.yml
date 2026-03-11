@@ -1,8 +1,9 @@
 name: Deploy-flask-app
 
 on:
-  push:
-    branches: [main]
+  workflow_dispatch
+  #push:
+   # branches: [main]
 
 jobs:
     deploy:
@@ -19,4 +20,4 @@ jobs:
             uses: docker/setup-compose-action@v2
           
           - name: deploy with docker compose up
-            run:  docker compose up -d --build --force-recreate
+            run:  docker docker compose up -d --build --force-recreate
