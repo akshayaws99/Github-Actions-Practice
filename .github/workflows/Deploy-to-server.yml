@@ -2,6 +2,11 @@ name: Deploy to server
 
 on:
     workflow_call:
+        secrets:
+            EC2_SSH_USER:
+                required: true
+            EC2_SSH_PRIVATE_KEY:
+                required: true
 
 
 jobs:
@@ -16,7 +21,7 @@ jobs:
             - name: SSH to Prod server
               uses: appleboy/ssh-action@v1.0.3
               with:
-                host: '13.239.29.148'
+                host: ${{ secrets.EC2_SSH_HOST }}
                 username: ${{ secrets.EC2_SSH_USER }}
                 key: ${{ secrets.EC2_SSH_PRIVATE_KEY }}
                 script: |
