@@ -57,5 +57,5 @@ jobs:
                    echo "${{ vars.DOCKERHUB_USER }}"
                    echo "${{ secrets.DOCKERHUB_TOKEN }}" | docker login  -u "${{ vars.DOCKERHUB_USER }}" --password-stdin
                    cd ~/devops
-                   docker docker compose up -d --build --force-recreate
+                   docker compose up -d --build --force-recreate
                    
