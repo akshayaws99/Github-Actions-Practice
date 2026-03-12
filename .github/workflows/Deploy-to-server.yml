@@ -52,8 +52,8 @@ jobs:
                 key: ${{ secrets.EC2_SSH_PRIVATE_KEY }}
                 script: |
                    echo "running app"
-                   export: DOCKERHUB_USER= ${{vars.DOCKERHUB_USER}}  
-                   export: DOCKER_TAG=latest
+                   export DOCKERHUB_USER= ${{vars.DOCKERHUB_USER}}  
+                   export DOCKER_TAG=latest
                    echo "${{ vars.DOCKERHUB_USER }}"
                    echo "${{ secrets.DOCKERHUB_TOKEN }}" | docker login  -u "${{ vars.DOCKERHUB_USER }}" --password-stdin
                    cd ~/devops
