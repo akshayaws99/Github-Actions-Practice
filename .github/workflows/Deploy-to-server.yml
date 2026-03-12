@@ -3,6 +3,8 @@ name: Deploy to server
 on:
     workflow_call:
         secrets:
+            EC2_SSH_HOST:
+                required: true
             EC2_SSH_USER:
                 required: true
             EC2_SSH_PRIVATE_KEY:
