@@ -33,3 +33,5 @@ jobs:
     deploy:
       needs: [trivy-image]
       uses: ./.github/workflows/Deploy-to-server.yml
+      secrets: inherit
+      
