@@ -1,4 +1,3 @@
-import os
 from flask import Flask, render_template
 app = Flask(__name__)
 
@@ -13,7 +12,4 @@ def health():
     return "Server is up and running"
 
 
-if __name__ == "__main__":
-    host = os.getenv("APP_HOST", "0.0.0.0")
-    port = int(os.getenv("APP_PORT", 80))
-    app.run(host=host, port=port)
+app.run(port=80)
