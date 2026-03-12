@@ -14,7 +14,7 @@ jobs:
             - name: SSH to Prod server
               uses: appleboy/ssh-action@v1.0.3
               with:
-                host: ${{ secrets.EC2_SSH_HOST }}
+                host: '13.239.29.148'
                 username: ${{ secrets.EC2_SSH_USER }}
                 key: ${{ secrets.EC2_SSH_PRIVATE_KEY }}
                 script: |
