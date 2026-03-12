@@ -59,4 +59,5 @@ jobs:
                    cd ~/devops
                    DOCKERHUB_USER=${{ vars.DOCKERHUB_USER }}
                    docker compose up -d --build --force-recreate
+                #docker must run now
                    
