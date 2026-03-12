@@ -13,21 +13,50 @@ on:
 
 jobs:
     deploy:
+        if: github.event.workflow_run.conclusion ="success"
+        env :
+            DOCKERHUB_USER: ${{vars.DOCKERHUB_USER}}
+            DOCKER_TAG : ${{github.event.workflow_run.head_sha}}
         runs-on: ubuntu-latest
         steps:
+            - name: checkout code
+              uses: actions/checkout@v4
+
+     
             
-            
-            - name: Debug user
-              run: echo "User = ${{ secrets.EC2_SSH_USER }}" && echo "Key = ${{ secrets.EC2_SSH_PRIVATE_KEY }}"
-            
-            - name: SSH to Prod server
+            - name: SSH to Prod server and create app folder
               uses: appleboy/ssh-action@v1.0.3
               with:
                 host: ${{ secrets.EC2_SSH_HOST }}
                 username: ${{ secrets.EC2_SSH_USER }}
                 key: ${{ secrets.EC2_SSH_PRIVATE_KEY }}
                 script: |
-                   mkdir devops && cd devops 
-                   echo "welcome to prod-server"
+                   sudo apt update && sudo apt upgrade -y
+                   echo "starting deployment"
+                   mkdir -p devops
                
+            - name : Copy the docker-compose file
+              uses: appleboy/scp-action@v1
+              with:
+                host: ${{ secrets.EC2_SSH_HOST }}
+                username: ${{ secrets.EC2_SSH_USER }}
+                key: ${{ secrets.EC2_SSH_PRIVATE_KEY }}
+                source: docker-compose.yml
+                target: ~/devops
+            
+            - name: SSH to Prod server and create app folder
+              uses: appleboy/ssh-action@v1.0.3
+              with:
+                host: ${{ secrets.EC2_SSH_HOST }}
+                username: ${{ secrets.EC2_SSH_USER }}
+                key: ${{ secrets.EC2_SSH_PRIVATE_KEY }}
+                script: |
+                   sudo apt update && sudo apt upgrade -y
+                   echo "running app"
+                   sudo apt-get install docker.io docker-compose-v2 -y
+                   sudo usermod -aG docker $USER &&  newgrp docker
+                   export: DOCKERHUB_USER: ${{vars.DOCKERHUB_USER}}  
+                   export: DOCKER_TAG : ${{github.event.workflow_run.head_sha}} 
+                   echo ${{secrets.DOCKERHUB_TOKEN}} | docker login  -u ${{secrets.DOCKERHUB_USER}} --password-stdin
+                   cd ~/devops && docker docker compose up -d --build --force-recreate
                    
