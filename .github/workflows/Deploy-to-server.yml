@@ -9,12 +9,14 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             
-              
+            - name: code checkout
+              uses: actions/checkout@v4
+
             - name: SSH to Prod server
               uses: appleboy/ssh-action@v1.0.3
               with:
                host: $${{secrets.SSH_HOST}}
-               username: ${{ secrets.USER }}
+               username: ${{ secrets.SS_USER }}
                script: ${{secrets.SSH_PRIVATE_KEY}}|
                    echo "Starting Deployment"
                    mkdir devops && cd devops
