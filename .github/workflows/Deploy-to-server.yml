@@ -10,7 +10,9 @@ jobs:
         steps:
             
             
-
+            - name: Debug user
+              run: echo "User = ${{ secrets.EC2_SSH_USER }}" && echo "Key = ${{ secrets.EC2_SSH_PRIVATE_KEY }}"
+            
             - name: SSH to Prod server
               uses: appleboy/ssh-action@v1.0.3
               with:
