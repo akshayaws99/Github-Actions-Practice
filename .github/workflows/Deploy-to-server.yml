@@ -17,7 +17,8 @@ jobs:
               with:
                host: ${{secrets.SSH_HOST}}
                username: ${{ secrets.SSH_USER }}
-               script: ${{ secrets.SSH_PRIVATE_KEY }}|
+               key: ${{ secrets.SSH_PRIVATE_KEY }}
+               script: |
                    echo "Starting Deployment"
                    mkdir devops && cd devops
                    
