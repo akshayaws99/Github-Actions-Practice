@@ -15,10 +15,11 @@ jobs:
             - name: SSH to Prod server
               uses: appleboy/ssh-action@v1.0.3
               with:
-               host: ${{ secrets.SSH_HOST }}
-               username: ${{ secrets.SSH_USER }}
-               key: ${{ secrets.SSH_PRIVATE_KEY }}
-               script: |
-                   echo "Starting Deployment"
-                   mkdir devops && cd devops
+                host: ${{ secrets.SSH_HOST }}
+                username: ${{ secrets.SSH_USER }}
+                key: ${{ secrets.SSH_PRIVATE_KEY }}
+                script: |
+                   mkdir devops && cd devops 
+                   echo "welcome to prod-server"
+               
                    
