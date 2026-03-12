@@ -13,10 +13,7 @@ on:
 
 jobs:
     deploy:
-        #if:ithub.event.workflow_run.conclusion == 'success'
-        env :
-            DOCKERHUB_USER: ${{vars.DOCKERHUB_USER}}
-            DOCKER_TAG : ${{github.event.workflow_run.head_sha}}
+       
         runs-on: ubuntu-latest
         steps:
             - name: checkout code
